@@ -1,12 +1,16 @@
 import React from 'react';
 
 function NoteItem(props) {
+
     return ( 
         <div className='note__item'>
-            <input className='note__item_checkbox'
+            <input 
+            checked={props.isChecked}
+            onChange={props.onNoteItemClick} 
+            className='note__item_checkbox'
             type={'radio'} 
             />
-            <h1 className='note__item_title'>{props.title}</h1>
+            <h1 className='note__item_title'>{props.note.title}</h1>
         </div>
      );
 }

@@ -127,11 +127,13 @@ legend {
     background-color: white;
     row-gap: 20px;
     align-items: center;
+    position: relative;
 }
 
 /* Styles for noteForm */
+
 .note__form{
-    width: 95%;
+    width: 100%;
     height: 100px;
     border: 1px solid black;
     display: flex;
@@ -140,6 +142,9 @@ legend {
     justify-content: center;
     row-gap: 8px;
     padding: 10px 10px;
+    background-color: whitesmoke;
+    position: absolute;
+    top: 100px;
 }
 .form__title{
     align-items: flex-start;
@@ -156,6 +161,7 @@ legend {
     border: 1px solid black;
     width: 80px;
     height: 50px;
+    border-radius: 10px;
 }
 
 /* Styles for noteList */

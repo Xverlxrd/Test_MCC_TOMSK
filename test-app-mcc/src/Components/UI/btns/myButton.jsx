@@ -3,7 +3,7 @@ import '../btns/myButton.css'
 
 function MyButton(props) {
     return ( 
-        <button className='MyButton'>
+        <button onClick={props.func} className='MyButton'>
             {props.placeholder}
         </button>
      );
