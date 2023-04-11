@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import "../Styles/main.css";
 import NoteItem from "./noteItem";
 
-function NoteList({ notes }) {
-    const[selectedNoteId, setSelectedNoteId] = useState(null)
-    function handleNoteItemClick(id) {
-        setSelectedNoteId(id);
-    }
+function NoteList({ notes, selectedNoteId, setSelectedNoteId }) {
+
+
+  function handleNoteItemClick(id) {
+    setSelectedNoteId(id); 
+  }
+
+
   return (
     <div className="note__container">
       {notes.map((note) => (
-        <NoteItem 
-        note={note} 
-        isChecked={selectedNoteId === note.id} 
-        onNoteItemClick={() => handleNoteItemClick(note.id)}
-        key={note.id} />
+        <NoteItem
+          note={note}
+          key={note.id}
+          isChecked={selectedNoteId === note.id} 
+          onNoteItemClick={() => handleNoteItemClick(note.id)}
+        />
       ))}
     </div>
   );

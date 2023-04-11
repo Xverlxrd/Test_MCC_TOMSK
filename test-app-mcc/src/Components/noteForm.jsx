@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 
 function NoteForm({ setFormVisibility, formVisibility, addNewNote }) {
-  const [note, setNote] = useState({ title: "" });                                          
+  const [note, setNote] = useState({ title: "", checked: false });                                          
   function createNote(e) {
     e.preventDefault();
     const newNote = {
       title: note.title,
+      checked: false,
       id: Date.now(),
     };
     if (note.title.trim()) {
       addNewNote(newNote);
-      setNote({title: ""});
+      setNote({title: "", checked: false});
       setFormVisibility(false);
     }
   }
+
   return (
     formVisibility && (
       <form className="note__form">
