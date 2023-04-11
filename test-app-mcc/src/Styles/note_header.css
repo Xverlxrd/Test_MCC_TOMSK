@@ -1,0 +1,6 @@
+.note__header{
+    width: 100%;
+    height: 80px;
+    border-bottom: 4px solid black;
+    display: flex;
+}
