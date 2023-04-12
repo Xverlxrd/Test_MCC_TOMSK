@@ -10,17 +10,38 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [selectedItemId, setSelectedItemId] = useState(null);
 
-  
-  function addNewSubnote(newSubnote) {
-    setNotes(prevNotes => {
-      return prevNotes.map(note => {
-        if (selectedItemId === note.id) {
-          return { ...note, subNote: [...note.subNote, newSubnote] };
+  function handleNoteItemClick(id) {
+    // Устанавливаем id выбранного элемента в состояние
+    setSelectedItemId(id);
+  }
+
+  function addNewSubnote(newSubnote, notes, selectedItemId) {
+    function addSubnoteRecursively(notesArray, targetId, newSubnoteItem) {
+      return notesArray.map((note) => {
+        if (note.id === targetId) {
+          return { ...note, subNote: [...note.subNote, newSubnoteItem] };
+        } else if (note.subNote.length > 0) {
+          return {
+            ...note,
+            subNote: addSubnoteRecursively(
+              note.subNote,
+              targetId,
+              newSubnoteItem
+            ),
+          };
         }
         return note;
       });
-    });
+    }
+
+    const updatedNotes = addSubnoteRecursively(
+      notes,
+      selectedItemId,
+      newSubnote
+    );
+    setNotes(updatedNotes);
   }
+
   function reset() {
     setNotes([]);
   }
@@ -54,6 +75,7 @@ function App() {
       />
 
       <NoteList
+        handleNoteItemClick={handleNoteItemClick}
         notes={notes}
         selectedItemId={selectedItemId}
         setSelectedItemId={setSelectedItemId}
@@ -61,6 +83,7 @@ function App() {
 
       {formAddVisible && (
         <NoteForm
+          notes={notes}
           addNewSubnote={addNewSubnote}
           selectedItemId={selectedItemId}
           setformEditVisible={setformEditVisible}
