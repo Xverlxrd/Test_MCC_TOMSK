@@ -4,32 +4,41 @@ import '../styles/main.css'
 function NoteForm({
     ButtonTitle,
     FormTitle,
-    addNewNote, 
-    setFormAddVisible, 
-    setformEditVisible, 
-    addNewTitle 
+    addNewNote,
+    setFormAddVisible,
+    setformEditVisible,
+    addNewTitle,
+    addSubNote,
+    selectedItemId
 }) {
     const [note, setNote] = useState({ title: "" });
 
-    function createNewNote(e) {
-        e.preventDefault()
-        const newNote = {
-            id: Date.now(),
-            title: note.title,
-        }
+    function createNewNote() {
         if (note.title.trim()) {
-            addNewNote(newNote)
-            setNote({ title: '' })
-            setFormAddVisible(false)
+            const newNote = {
+                id: Date.now(),
+                title: note.title,
+            }
+            if (selectedItemId !== null) {
+                const newSubNote = {
+                    id: Date.now(),
+                    title: note.title,
+                    subNotes: []
+                }
+                addSubNote(newSubNote)
+            } else {
+                addNewNote(newNote)
+            }
+            setNote({ title: '' });
+            setFormAddVisible(false);
         }
     }
-    function EditNote(e) {
-        e.preventDefault()
-        const newTitle = {
-            title: note.title,
-            id: Date.now(),
-        }
+    function editNote() {
         if (note.title.trim()) {
+            const newTitle = {
+                title: note.title,
+                id: selectedItemId,
+            }
             addNewTitle(newTitle.title)
             setNote({ title: '' })
             setformEditVisible(false)
@@ -48,7 +57,7 @@ function NoteForm({
                 <button onClick={createNewNote} className='note_btn'>{ButtonTitle}</button>
             )}
             {ButtonTitle === 'Edit' && (
-                <button onClick={EditNote} className='note_btn'>{ButtonTitle}</button>
+                <button onClick={editNote} className='note_btn'>{ButtonTitle}</button>
             )}
         </form>
     );

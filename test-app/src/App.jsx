@@ -10,8 +10,18 @@ function App() {
   const [formEditVisible, setformEditVisible] = useState(false);
   const [notes, setNotes] = useState([])
   const [selectedItemId, setSelectedItemId] = useState(null);
+  const [subNotes, setSubNotes] = useState([]);
+  
 
-
+  function addSubNote(newSubNote) {
+    const updateNotesForSubnotes = notes.map(n => {
+      if(selectedItemId === n.id){
+        setSubNotes([...subNotes, newSubNote]);
+      }
+      return n;
+    })
+    setNotes(updateNotesForSubnotes)
+  };
   function reset() {
     setNotes([]);
   }
@@ -46,6 +56,7 @@ function App() {
       />
 
       <NoteList
+        subNotes={subNotes}
         notes={notes}
         selectedItemId={selectedItemId}
         setSelectedItemId={setSelectedItemId}
@@ -53,6 +64,8 @@ function App() {
 
       {formAddVisible && (
         <NoteForm
+          addSubNote={addSubNote}
+          selectedItemId={selectedItemId}
           setformEditVisible={setformEditVisible}
           setFormAddVisible={setFormAddVisible}
           addNewNote={addNewNote}
