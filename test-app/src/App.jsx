@@ -1,50 +1,48 @@
-import React, { useState } from 'react';
-import './styles/main.css';
-import NoteHeader from './Components/note_header';
-import NoteForm from './Components/note_form';
-import NoteList from './Components/note_list';
-
+import React, { useState } from "react";
+import "./styles/main.css";
+import NoteHeader from "./Components/note_header";
+import NoteForm from "./Components/note_form";
+import NoteList from "./Components/note_list";
 
 function App() {
   const [formAddVisible, setFormAddVisible] = useState(false);
   const [formEditVisible, setformEditVisible] = useState(false);
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState([]);
   const [selectedItemId, setSelectedItemId] = useState(null);
-  const [subNotes, setSubNotes] = useState([]);
-  
+  const[ subNotes, setSubNotes] = useState([])
 
-  function addSubNote(newSubNote) {
-    const updateNotesForSubnotes = notes.map(n => {
-      if(selectedItemId === n.id){
-        setSubNotes([...subNotes, newSubNote]);
+  
+  function addNewSubnote(newSubnote) {
+    const updatedNotes = notes.map((note) => {
+      if (selectedItemId === note.id) {
+        return { ...note, subNote: newSubnote };
       }
-      return n;
-    })
-    setNotes(updateNotesForSubnotes)
-  };
+      return note;
+    });
+    setNotes(updatedNotes);
+  }
   function reset() {
     setNotes([]);
   }
   function addNewNote(newNote) {
-    setNotes([...notes, newNote])
+    setNotes([...notes, newNote]);
   }
   function addNewTitle(newTitle) {
-    const updateTitleNotes = notes.map(n => {
+    const updateTitleNotes = notes.map((n) => {
       if (selectedItemId === n.id) {
         return { ...n, title: newTitle };
       }
       return n;
-    })
-    setNotes(updateTitleNotes)
+    });
+    setNotes(updateTitleNotes);
   }
   function filterNote(note) {
     if (selectedItemId === note.id) {
-      setNotes(notes.filter(e => e.id !== note.id))
+      setNotes(notes.filter((e) => e.id !== note.id));
     }
   }
   return (
     <div className="App">
-
       <NoteHeader
         reset={reset}
         notes={notes}
@@ -56,7 +54,6 @@ function App() {
       />
 
       <NoteList
-        subNotes={subNotes}
         notes={notes}
         selectedItemId={selectedItemId}
         setSelectedItemId={setSelectedItemId}
@@ -64,7 +61,7 @@ function App() {
 
       {formAddVisible && (
         <NoteForm
-          addSubNote={addSubNote}
+          addNewSubnote={addNewSubnote}
           selectedItemId={selectedItemId}
           setformEditVisible={setformEditVisible}
           setFormAddVisible={setFormAddVisible}
@@ -72,8 +69,7 @@ function App() {
           FormTitle={"Add note"}
           ButtonTitle={"Add"}
         />
-      )
-      }
+      )}
 
       {formEditVisible && (
         <NoteForm
@@ -82,8 +78,7 @@ function App() {
           FormTitle={"Edit note"}
           ButtonTitle={"Edit"}
         />
-      )
-      }
+      )}
     </div>
   );
 }

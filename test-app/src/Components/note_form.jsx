@@ -8,24 +8,25 @@ function NoteForm({
     setFormAddVisible,
     setformEditVisible,
     addNewTitle,
-    addSubNote,
-    selectedItemId
+    selectedItemId,
+    addNewSubnote
 }) {
-    const [note, setNote] = useState({ title: "" });
+    const [note, setNote] = useState({ title: "" , subNote: []});
 
     function createNewNote() {
         if (note.title.trim()) {
             const newNote = {
                 id: Date.now(),
                 title: note.title,
+                subNote: []
+            }
+            const newSubnote = {
+                id: Date.now(),
+                title: note.title,
+                subNote: [],
             }
             if (selectedItemId !== null) {
-                const newSubNote = {
-                    id: Date.now(),
-                    title: note.title,
-                    subNotes: []
-                }
-                addSubNote(newSubNote)
+                addNewSubnote(newSubnote)
             } else {
                 addNewNote(newNote)
             }

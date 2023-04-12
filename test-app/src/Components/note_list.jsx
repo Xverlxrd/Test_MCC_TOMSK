@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/main.css'
 import NoteItem from './note_item';
 
-function NoteList({ notes, setSelectedItemId, selectedItemId, subNotes }) {
+function NoteList({ notes, setSelectedItemId, selectedItemId }) {
 
 
     function handleNoteItemClick(id) {
@@ -14,7 +14,6 @@ function NoteList({ notes, setSelectedItemId, selectedItemId, subNotes }) {
         <div className='list__container'>
             {notes.map(note => (
                 <NoteItem
-                    subNotes={subNotes}
                     note={note}
                     title={"Note"}
                     onNoteItemClick={handleNoteItemClick}
