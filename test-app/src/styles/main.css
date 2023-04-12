@@ -1,0 +1,145 @@
+/* Указываем box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+#root{
+    width: 100%;
+    height: 100vh;
+    background-color: teal;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Styles for App */
+.App{
+    width: 400px;
+    height: 600px;
+    background-color: white;
+    border: 4px solid black;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    
+}
+
+/* Styles for noteForm */
+.note_form{
+    width: 300px;
+    height: 150px;
+    position: absolute;
+    align-self: center;
+    z-index: 1;
+    background-color: whitesmoke;
+    top: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+.form_title{
+    width: 100%;
+    text-align: start;
+}
+.note_input{
+    border-radius: 10px;
+    width: 100%;
+    display: flex;
+}
+.note_btn{
+    width: 100px;
+    align-self: center; 
+}
+
+/* Styles for noteList */
+.list__container{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    height: 100%;
+    align-self: center;
+    row-gap: 10px;
+}
+
+/* Styles for noteItem */
+.note__item{
+    font-size: 16px;
+    transition: background-color 1s linear;
+}

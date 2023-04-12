@@ -1,0 +1,12 @@
+/* Styles for myButton */
+.myBtn{
+    width: 25%;
+    height: 60px;
+    border: 0px;
+    background-color: white;
+    opacity: 40%;
+    transition: opacity 0.5s linear;
+}
+.myBtn:hover{
+    opacity: 100%;
+}
