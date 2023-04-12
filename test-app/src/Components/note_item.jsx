@@ -1,22 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-function NoteItem({ note }) {
-    const [color, setColor] = useState("white");
-    const [selectItemId, setSelectItemId] = useState(null)
-
-    function setItemColor() {
-        setSelectItemId(note.id)
-        if (color === "blue") {
-            setColor("white")
-        } else {
-            setColor("blue")
-        }
+function NoteItem({ note, onNoteItemClick, isSelected}) {
 
 
-    }
     return (
-        <div onClick={setItemColor}
-            style={{ backgroundColor: note.id === selectItemId ? "blue" : "white" }}
+        <div onClick={() => onNoteItemClick(note.id)}
+            style={{ backgroundColor: isSelected ? "blue" : "white"}}
             className='note__item'>
             <h1 className='note__item_title'>{note.title}</h1>
         </div>
