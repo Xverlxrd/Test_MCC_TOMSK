@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
-function NoteItem({ note, onNoteItemClick, isSelected }) {
-  const [selectedSubnoteId, setSelectedSubnoteId] = useState(null);
+function NoteItem({ note, onNoteItemClick, isSelected, selectedItemId }) {
 
-  const handleSubnoteItemClick = (subnoteId) => {
-    setSelectedSubnoteId(subnoteId);
-  };
   return (
     <div className="note__item_conatainer">
       <div
@@ -16,12 +12,12 @@ function NoteItem({ note, onNoteItemClick, isSelected }) {
         <h1 className="note__item_title">{note.title}</h1>
       </div>
       <div className="subnote__container">
-      {note.subNote.map((subNote) => (
+      {note.subNote.map((note) => (
           <NoteItem
-            key={subNote.id}
-            note={subNote}
-            onNoteItemClick={handleSubnoteItemClick}
-            isSelected={selectedSubnoteId === subNote.id}
+            key={note.id}
+            note={note}
+            onNoteItemClick={onNoteItemClick}
+            isSelected={selectedItemId === note.id}
           />
         ))}
       </div>

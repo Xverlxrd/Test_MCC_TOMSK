@@ -10,10 +10,13 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [selectedItemId, setSelectedItemId] = useState(null);
 
-  
+  function handleNoteItemClick(id) {
+    // Устанавливаем id выбранного элемента в состояние
+    setSelectedItemId(id);
+  }
   function addNewSubnote(newSubnote) {
-    setNotes(prevNotes => {
-      return prevNotes.map(note => {
+    setNotes((prevNotes) => {
+      return prevNotes.map((note) => {
         if (selectedItemId === note.id) {
           return { ...note, subNote: [...note.subNote, newSubnote] };
         }
@@ -54,6 +57,7 @@ function App() {
       />
 
       <NoteList
+        handleNoteItemClick={handleNoteItemClick}
         notes={notes}
         selectedItemId={selectedItemId}
         setSelectedItemId={setSelectedItemId}
