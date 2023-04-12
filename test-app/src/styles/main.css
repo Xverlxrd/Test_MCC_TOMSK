@@ -142,6 +142,10 @@ select {
 .note__item{
     font-size: 16px;
     transition: background-color 1s linear;
+    border: 1px solid black
+}
+.note__item:hover{
+  background-color: blue;
 }
 .note__item_conatainer{
   display: flex;

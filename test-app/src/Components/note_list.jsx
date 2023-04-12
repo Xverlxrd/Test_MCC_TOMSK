@@ -6,6 +6,7 @@ function NoteList({
   notes,
   selectedItemId,
   handleNoteItemClick,
+  
 }) {
   return (
     <div className="list__container">

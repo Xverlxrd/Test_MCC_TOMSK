@@ -9,7 +9,8 @@ function NoteForm({
     setformEditVisible,
     addNewTitle,
     selectedItemId,
-    addNewSubnote
+    addNewSubnote,
+    notes
 }) {
     const [note, setNote] = useState({ title: "" , subNote: []});
 
@@ -26,7 +27,7 @@ function NoteForm({
                 subNote: [],
             }
             if (selectedItemId !== null) {
-                addNewSubnote(newSubnote)
+                addNewSubnote(newSubnote, notes, selectedItemId)
             } else {
                 addNewNote(newNote)
             }
