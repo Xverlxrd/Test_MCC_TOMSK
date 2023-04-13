@@ -11,7 +11,6 @@ function App() {
   const [selectedItemId, setSelectedItemId] = useState(null);
 
   function handleNoteItemClick(id) {
-    // Устанавливаем id выбранного элемента в состояние
     setSelectedItemId(id);
   }
 
@@ -49,25 +48,47 @@ function App() {
     setNotes([...notes, newNote]);
   }
   function addNewTitle(newTitle) {
-    const updateTitleNotes = notes.map((n) => {
-      if (selectedItemId === n.id) {
-        return { ...n, title: newTitle };
-      }
-      return n;
-    });
-    setNotes(updateTitleNotes);
-  }
-  function filterNote(note) {
-    if (selectedItemId === note.id) {
-      setNotes(notes.filter((e) => e.id !== note.id));
+    function updateNoteTitle(notesArray, targetId, newTitle) {
+      return notesArray.map((note) => {
+        if (note.id === targetId) {
+          return { ...note, title: newTitle };
+        } else if (note.subNote.length > 0) {
+          return { ...note, subNote: updateNoteTitle(note.subNote, targetId, newTitle) };
+        }
+        return note;
+      });
     }
+  
+    const updatedNotes = updateNoteTitle(notes, selectedItemId, newTitle);
+    setNotes(updatedNotes);
   }
+
+  function deleteNote() {
+    function deleteNoteRecursively(notesArray, targetId) {
+      return notesArray.map((note) => {
+        if (note.id === targetId) {
+          if (notesArray === notes && note.subNote.length > 0) {
+            return { ...note, subNote: note.subNote.filter(subNote => subNote.id !== targetId) };
+          }
+          return null;
+        } else {
+          const updatedSubNote = deleteNoteRecursively(note.subNote, targetId);
+          return { ...note, subNote: updatedSubNote };
+        }
+      }).filter(Boolean);
+    }
+  
+    const updatedNotes = deleteNoteRecursively(notes, selectedItemId);
+    setNotes(updatedNotes);
+    setSelectedItemId(null);
+  }
+
   return (
     <div className="App">
       <NoteHeader
         reset={reset}
         notes={notes}
-        filterNote={filterNote}
+        deleteNote={deleteNote}
         formEditVisible={formEditVisible}
         formAddVisible={formAddVisible}
         setFormAddVisible={setFormAddVisible}
@@ -83,7 +104,6 @@ function App() {
 
       {formAddVisible && (
         <NoteForm
-          notes={notes}
           addNewSubnote={addNewSubnote}
           selectedItemId={selectedItemId}
           setformEditVisible={setformEditVisible}
