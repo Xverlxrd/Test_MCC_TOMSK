@@ -10,7 +10,8 @@ function NoteForm({
     addNewTitle,
     selectedItemId,
     addNewSubnote,
-    notes
+    notes,
+    setSelectedItemId
 }) {
     const [note, setNote] = useState({ title: "" , subNote: []});
 
@@ -35,6 +36,7 @@ function NoteForm({
             setNote({ title: '' });
             setFormAddVisible(false);
         }
+        setSelectedItemId(null)
     }
     function editNote() {
         if (note.title.trim()) {

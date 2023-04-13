@@ -117,6 +117,7 @@ function App() {
 
       {formAddVisible && (
         <NoteForm
+        setSelectedItemId={setSelectedItemId}
           notes={notes}
           addNewSubnote={addNewSubnote}
           selectedItemId={selectedItemId}
