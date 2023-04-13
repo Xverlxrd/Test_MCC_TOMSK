@@ -7,15 +7,9 @@ function NoteHeader({
     setformEditVisible,
     formAddVisible,
     formEditVisible,
-    filterNote,
-    notes,
+    deleteNote,
     reset }
 ) {
-    function removeNote(){
-        notes.map(note => {
-            return filterNote(note);
-        })
-    }
     function visiabilityAdd() {
         if (!formAddVisible) {
             setFormAddVisible(true)
@@ -36,7 +30,7 @@ function NoteHeader({
     return (
         <header className='note__header'>
             <MyButton click={visiabilityAdd} name={"Add"} />
-            <MyButton click={removeNote} name={"Remove"} />
+            <MyButton click={deleteNote} name={"Remove"} />
             <MyButton click={visiabilityEdit} name={"Edit"} />
             <MyButton click={reset} name={"Reset"} />
         </header>

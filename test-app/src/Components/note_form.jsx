@@ -41,9 +41,9 @@ function NoteForm({
                 title: note.title,
                 id: selectedItemId,
             }
-            addNewTitle(newTitle.title)
-            setNote({ title: '' })
-            setformEditVisible(false)
+            addNewTitle(newTitle.title);
+            setNote({ title: '' });
+            setformEditVisible(false);
         }
     }
     return (
