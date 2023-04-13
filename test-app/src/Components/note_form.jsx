@@ -14,7 +14,8 @@ function NoteForm({
 }) {
     const [note, setNote] = useState({ title: "" , subNote: []});
 
-    function createNewNote() {
+    function createNewNote(e) {
+        e.preventDefault()
         if (note.title.trim()) {
             const newNote = {
                 id: Date.now(),

@@ -53,31 +53,44 @@ function App() {
         if (note.id === targetId) {
           return { ...note, title: newTitle };
         } else if (note.subNote.length > 0) {
-          return { ...note, subNote: updateNoteTitle(note.subNote, targetId, newTitle) };
+          return {
+            ...note,
+            subNote: updateNoteTitle(note.subNote, targetId, newTitle),
+          };
         }
         return note;
       });
     }
-  
+
     const updatedNotes = updateNoteTitle(notes, selectedItemId, newTitle);
     setNotes(updatedNotes);
   }
 
   function deleteNote() {
     function deleteNoteRecursively(notesArray, targetId) {
-      return notesArray.map((note) => {
-        if (note.id === targetId) {
-          if (notesArray === notes && note.subNote.length > 0) {
-            return { ...note, subNote: note.subNote.filter(subNote => subNote.id !== targetId) };
+      return notesArray
+        .map((note) => {
+          if (note.id === targetId) {
+            if (notesArray === notes && note.subNote.length > 0) {
+              return {
+                ...note,
+                subNote: note.subNote.filter(
+                  (subNote) => subNote.id !== targetId
+                ),
+              };
+            }
+            return null;
+          } else {
+            const updatedSubNote = deleteNoteRecursively(
+              note.subNote,
+              targetId
+            );
+            return { ...note, subNote: updatedSubNote };
           }
-          return null;
-        } else {
-          const updatedSubNote = deleteNoteRecursively(note.subNote, targetId);
-          return { ...note, subNote: updatedSubNote };
-        }
-      }).filter(Boolean);
+        })
+        .filter(Boolean);
     }
-  
+
     const updatedNotes = deleteNoteRecursively(notes, selectedItemId);
     setNotes(updatedNotes);
     setSelectedItemId(null);
@@ -104,6 +117,7 @@ function App() {
 
       {formAddVisible && (
         <NoteForm
+          notes={notes}
           addNewSubnote={addNewSubnote}
           selectedItemId={selectedItemId}
           setformEditVisible={setformEditVisible}
